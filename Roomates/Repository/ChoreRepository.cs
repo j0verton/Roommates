@@ -17,7 +17,7 @@ namespace Roomates.Repository
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Name";
+                    cmd.CommandText = "SELECT Id, Name FROM Chore";
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<Chore> chores = new List<Chore>();
                     while (reader.Read())
@@ -47,8 +47,8 @@ namespace Roomates.Repository
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
-                { 
-                cmd.CommandText = "SELECT Name FROM Chore WHERE Id = @id"
+                {
+                    cmd.CommandText = "SELECT Name FROM Chore WHERE Id = @id";
                         cmd.Parameters.AddWithValue("@id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
 
