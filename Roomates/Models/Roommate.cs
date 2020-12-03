@@ -4,7 +4,14 @@ using System.Text;
 
 namespace Roomates.Models
 {
-    class Roommate1
+    public class Roommate
     {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int RentPortion { get; set; }
+        public DateTime MovedInDate { get; set; }
+        public Room Room { get; set; }
+
     }
 }
