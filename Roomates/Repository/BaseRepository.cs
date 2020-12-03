@@ -5,7 +5,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Roomates.Repository
 {
-    class BaseRepository
+    public class BaseRepository
     {
 
         private string _connectionString;

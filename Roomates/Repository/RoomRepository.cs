@@ -1,8 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
-using Roommates.Models;
+using Roomates.Models;
 using System.Collections.Generic;
 
-namespace Roommates.Repositories
+namespace Roomates.Repository
 {
     /// <summary>
     ///  This class is responsible for interacting with Room data.
