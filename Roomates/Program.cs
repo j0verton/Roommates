@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Roomates.Models;
+using Roomates.Repository;
+using System;
 using System.Collections.Generic;
 
 namespace Roomates
@@ -8,6 +10,7 @@ namespace Roomates
         private const string CONNECTION_STRING = @"server=localhost\SQLExpress;database=Roommates;integrated security=true";
         static void Main(string[] args)
         {
+            RoomRepository roomRepo = new RoomRepository(CONNECTION_STRING);
             bool runProgram = true;
 
             while (runProgram)
@@ -17,7 +20,13 @@ namespace Roomates
                 switch (selection)
                 {
                     case ("Show all rooms"):
-
+                        List<Room> rooms = roomRepo.GetAll();
+                        foreach (Room r in rooms)
+                        {
+                            Console.WriteLine($"{r.Id} - {r.Name} Max Occupancy({r.MaxOccupancy})");
+                        }
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
                         break;
                     case ("Search for room"):
 
