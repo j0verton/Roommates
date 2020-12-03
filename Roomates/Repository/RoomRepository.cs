@@ -54,6 +54,53 @@ namespace Roomates.Repository
             }
         }
 
-    
+        public Room GetById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Name, MaxOccupancy FROM Room WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    Room room = null;
+
+                    if (reader.Read())
+                    {
+                        room = new Room
+                        {
+                            Id = id,
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            MaxOccupancy = reader.GetInt32(reader.GetOrdinal("MaxOccupancy"))
+                        };
+                    }
+
+                    reader.Close();
+                    return room;
+                }
+            }
+        }
+
+        public void Insert(Room room)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = @"INSERT INTO Room (Name, MaxOccupancy) 
+                                             OUTPUT INSERTED.Id 
+                                             VALUES (@name, @maxOccupancy)";
+                        cmd.Parameters.AddWithValue("@name", room.Name);
+                        cmd.Parameters.AddWithValue("@maxOccupancy", room.MaxOccupancy);
+                        int id = (int)cmd.ExecuteScalar();
+
+                        room.Id = id;
+                    }
+            }
+
+        }
     }
 }
