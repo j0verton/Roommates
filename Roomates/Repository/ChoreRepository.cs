@@ -1,9 +1,9 @@
 ﻿using Microsoft.Data.SqlClient;
+using Roomates.Models;
 using Roommates.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 namespace Roommates.Repository
 {
     class ChoreRepository : BaseRepository
@@ -146,11 +146,47 @@ namespace Roommates.Repository
             }
         }
 
-        //public List<Roomates.Models.ChoreCount> GetChoreCounts()
-        //{ 
-        
-        
-        //}
+        public List<ChoreCount> GetChoreCounts()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT r.FirstName, COUNT(rc.Id) AS Count
+                        FROM RoommateChore rc
+                        JOIN Roommate r on rc.RoommateId = r.Id
+                        GROUP BY r.FirstName";
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    List<ChoreCount> counts = new List<ChoreCount>();
+
+                    while (reader.Read())
+                    {
+                        //int idColumnPosition = reader.GetOrdinal("Id");
+                        //int IdValue = reader.GetInt32(idColumnPosition);
+
+                        int nameColumnPosition = reader.GetOrdinal("FirstName");
+                        string nameValue = reader.GetString(nameColumnPosition);
+
+                        int countColumnPosition = reader.GetOrdinal("Count");
+                        int CountValue = reader.GetInt32(countColumnPosition);
+
+                        ChoreCount choreCount = new ChoreCount
+                        {
+                            //Id = IdValue,
+                            Name = nameValue,
+                            Count = CountValue,
+                        };
+                        counts.Add(choreCount);
+
+                    }
+                    reader.Close();
+                    return counts;
+                }
+            }
+        }
+
+
 
 
     }
