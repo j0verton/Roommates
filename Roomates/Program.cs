@@ -12,6 +12,7 @@ namespace Roommates
         {
             RoomRepository roomRepo = new RoomRepository(CONNECTION_STRING);
             ChoreRepository choreRepo = new ChoreRepository(CONNECTION_STRING);
+            RoommateRepository rmRepo = new RoommateRepository(CONNECTION_STRING);
 
             bool runProgram = true;
 
@@ -57,6 +58,16 @@ namespace Roommates
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
+
+                    case ("Search for a roommate"):
+                        Console.WriteLine("Roommate Id: ");
+                        int roommateId = int.Parse(Console.ReadLine());
+                        Roommate roommate = rmRepo.GetById(roommateId);
+                        Console.WriteLine($"{roommate.Id} - {roommate.FirstName} {roommate.LastName} - {roommate.Room.Name}");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                        break;
+
                     case ("Add a room"):
                         Console.Write("Room name: ");
                         string name = Console.ReadLine();
@@ -89,6 +100,37 @@ namespace Roommates
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
+
+                    case ("Show all unassigned chores"):
+                        List<Chore> unassignedChores = choreRepo.GetUnassignedChores();
+                        foreach (Chore c in unassignedChores)
+                        {
+                            Console.WriteLine($"{c.Id} - {c.Name}");
+                        }
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                        break;
+
+                    case ("Assign chore to roommate"):
+                        List<Chore> UnassignedChores = choreRepo.GetUnassignedChores();
+                        foreach (Chore c in UnassignedChores)
+                        {
+                            Console.WriteLine($"{c.Id} - {c.Name}");
+                        }
+                        Console.Write("Select the id of the chore you want to assign.");
+                        int selectedChoreId = int.Parse(Console.ReadLine());
+                        List<Roommate> roommates = rmRepo.GetAll();
+                        foreach (Roommate r in roommates)
+                        {
+                            Console.WriteLine($"{r.Id} - {r.FirstName} {r.LastName})");
+                        }
+                        Console.Write("Select the id of the roommate you want to assign the chore to.");
+                        int selectedRmId = int.Parse(Console.ReadLine());
+                        choreRepo.AssignChore(selectedRmId, selectedChoreId);
+                        Console.Write("Chore assigned");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                        break;
                     case ("Exit"):
                         runProgram = false;
                         break;
@@ -108,7 +150,10 @@ namespace Roommates
                 "Add a room",
                 "Show all chores",
                 "Search for a chore",
+                "Search for a roommate",
                 "Add a chore",
+                "Show all unassigned chores",
+                "Assign chore to roommate",
                 "Exit"
             };
             for (int i = 0; i < options.Count; i++)

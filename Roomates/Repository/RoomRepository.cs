@@ -54,7 +54,7 @@ namespace Roommates.Repository
             }
         }
 
-        public static Room GetById(int id)
+        public Room GetById(int id)
         {
             using (SqlConnection conn = Connection)
             {
