@@ -1,9 +1,9 @@
-﻿using Roomates.Models;
-using Roomates.Repository;
+﻿using Roommates.Models;
+using Roommates.Repository;
 using System;
 using System.Collections.Generic;
 
-namespace Roomates
+namespace Roommates
 {
     class Program
     {

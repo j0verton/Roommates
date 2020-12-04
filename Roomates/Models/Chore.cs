@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Roomates.Models
+namespace Roommates.Models
 {
     public class Chore
     {

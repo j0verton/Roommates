@@ -1,19 +1,18 @@
 ﻿using Microsoft.Data.SqlClient;
-using Roomates.Models;
+using Roommates.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Roomates.Repository
+namespace Roommates.Repository
 {
-    public class RoomateRepository : BaseRepository
+    public class RoommateRepository : BaseRepository
     {
-        public RoomateRepository(string connectionString) : base(connectionString) { }
+        public RoommateRepository(string connectionString) : base(connectionString) { }
 
         public Roommate GetById(int id)
         { 
-
-                    using (SqlConnection conn = Connection)
+                using (SqlConnection conn = Connection)
                     {
                         conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
@@ -31,18 +30,17 @@ namespace Roomates.Repository
                             Id = id,
                             FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                            Room = RoomRepository.GetById(reader.GetInt32(reader.GetOrdinal("RoomId")))
 
-                            //what am i doing here use getbyId to get the room?
-                           // Room = new Room
                         };
                     reader.Close();
-                        return roommate;
+                    return roommate;
                     }
                 }
             }
         }
 
-                //public void Insert(Roommate roomate) 
+                //public void Insert(Roommate roommate) 
                 //{
                 //    using (SqlConnection conn = Connection)
                 //    {
@@ -52,11 +50,11 @@ namespace Roomates.Repository
                 //        cmd.CommandText = @"INSERT INTO Chore (FirstName, LastName, RentPortion, MovedInDate, RoomId) 
                 //                                     OUTPUT INSERTED.Id 
                 //                                     VALUES (@FirstName, @LastName, @RentPortion, @MovedInDate, @RoomId)";
-                //            cmd.Parameters.AddWithValue("@FirstName", roomate.FirstName);
-                //            cmd.Parameters.AddWithValue("@LastName", roomate.LastName);
-                //            cmd.Parameters.AddWithValue("@RentPortion", roomate.RentPortion);
-                //            cmd.Parameters.AddWithValue("@MoveInDate", roomate.MovedInDate);
-                //            cmd.Parameters.AddWithValue("@RoomId", roomate.Room);
+                //            cmd.Parameters.AddWithValue("@FirstName", roommate.FirstName);
+                //            cmd.Parameters.AddWithValue("@LastName", roommate.LastName);
+                //            cmd.Parameters.AddWithValue("@RentPortion", roommate.RentPortion);
+                //            cmd.Parameters.AddWithValue("@MoveInDate", roommate.MovedInDate);
+                //            cmd.Parameters.AddWithValue("@RoomId", roommate.Room);
 
                 //        }
 

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
-using Roomates.Models;
+using Roommates.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Roomates.Repository
+namespace Roommates.Repository
 {
     class ChoreRepository : BaseRepository
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
-using Roomates.Models;
+using Roommates.Models;
 using System.Collections.Generic;
 
-namespace Roomates.Repository
+namespace Roommates.Repository
 {
     /// <summary>
     ///  This class is responsible for interacting with Room data.
@@ -54,7 +54,7 @@ namespace Roomates.Repository
             }
         }
 
-        public Room GetById(int id)
+        public static Room GetById(int id)
         {
             using (SqlConnection conn = Connection)
             {
