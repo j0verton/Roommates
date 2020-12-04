@@ -16,5 +16,20 @@ namespace Roommates.Repository
         }
 
         protected SqlConnection Connection => new SqlConnection(_connectionString);
+
+
+        public void Delete(int id, string table)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"DELETE FROM {table} WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
