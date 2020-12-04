@@ -204,21 +204,20 @@ namespace Roommates.Repository
             }
         }
 
-        public void Delete(int id)
+        public void Delete(int id )
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "DELETE FROM CHore WHERE Id = @id";
+                    cmd.CommandText = $@"DELETE FROM Chore WHERE Id = @id
+                                        Delete FROM chore WHERE";
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
                 }
             }
         }
-
-
 
 
     }

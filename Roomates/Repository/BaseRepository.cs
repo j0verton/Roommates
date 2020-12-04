@@ -8,7 +8,7 @@ namespace Roommates.Repository
     public class BaseRepository
     {
 
-        private string _connectionString;
+        protected string _connectionString;
 
         public BaseRepository(string connectionString)
         {

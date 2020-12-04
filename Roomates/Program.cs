@@ -127,9 +127,8 @@ namespace Roommates
                         List<Chore> choreOptions = ListAllChores("return");
                         Console.Write("Which chore would you like to update? ");
 
-
                         int selectedChoreId = int.Parse(Console.ReadLine());
-                        Room selectedChore = choreOptions.FirstOrDefault(r => r.Id == selectedChoreId);
+                        Chore selectedChore = choreOptions.FirstOrDefault(r => r.Id == selectedChoreId);
 
                         Console.Write("New Name: ");
                         selectedChore.Name = Console.ReadLine();
@@ -141,11 +140,13 @@ namespace Roommates
                         Console.ReadKey();
                         break;
 
+
+
                     case ("Delete a chore"):
                         ListAllChores();
                         Console.Write("Which chore would you like to delete? ");
                         int deletedChoreId = int.Parse(Console.ReadLine());
-                        roomRepo.Delete(deletedChoreId, "Chore");
+                        choreRepo.Delete(deletedChoreId);
                         Console.WriteLine($"Chore has been successfully deleted");
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
@@ -161,10 +162,12 @@ namespace Roommates
                         Console.ReadKey();
                         break;
 
+
+
                     case ("Assign chore to roommate"):
                         ListAllChores();
                         Console.WriteLine("Select the id of the chore you want to assign.");
-                        int selectedChoreId = int.Parse(Console.ReadLine());
+                        int assignChoreId = int.Parse(Console.ReadLine());
                         List<Roommate> roommates = rmRepo.GetAll();
                         foreach (Roommate r in roommates)
                         {
@@ -172,11 +175,14 @@ namespace Roommates
                         }
                         Console.WriteLine("Select the id of the roommate you want to assign the chore to.");
                         int selectedRmId = int.Parse(Console.ReadLine());
-                        choreRepo.AssignChore(selectedRmId, selectedChoreId);
+                        choreRepo.AssignChore(selectedRmId, assignChoreId);
                         Console.WriteLine("Chore assigned");
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
+
+
+
 
                     case ("Check the chore assignment count"):
                         List<ChoreCount> counts = choreRepo.GetChoreCounts();
