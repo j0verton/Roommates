@@ -97,7 +97,7 @@ namespace Roommates.Repository
                 {
                     cmd.CommandText = @"SELECT c.Id, c.Name, rc.RoommateId
                         FROM Chore c
-                        JOIN RoommateChore rc ON rc.ChoreId = c.Id
+                        LEFT JOIN RoommateChore rc ON rc.ChoreId = c.Id
                         WHERE rc.RoommateId is NULL";
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<Chore> unassignedChores = new List<Chore>();
@@ -146,7 +146,11 @@ namespace Roommates.Repository
             }
         }
 
-        public List<ChoreCount> GetChoreCounts()
+        //public List<Roomates.Models.ChoreCount> GetChoreCounts()
+        //{ 
+        
+        
+        //}
 
 
     }

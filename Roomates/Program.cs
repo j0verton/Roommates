@@ -97,7 +97,7 @@ namespace Roommates
                         };
                         choreRepo.Insert(choreToAdd);
                         Console.WriteLine($"{choreToAdd.Name} has been added and assigned an Id of {choreToAdd.Id}");
-                        Console.Write("Press any key to continue");
+                        Console.WriteLine("Press any key to continue");
                         Console.ReadKey();
                         break;
 
@@ -117,7 +117,7 @@ namespace Roommates
                         {
                             Console.WriteLine($"{c.Id} - {c.Name}");
                         }
-                        Console.Write("Select the id of the chore you want to assign.");
+                        Console.WriteLine("Select the id of the chore you want to assign.");
                         int selectedChoreId = int.Parse(Console.ReadLine());
                         List<Roommate> roommates = rmRepo.GetAll();
                         foreach (Roommate r in roommates)
@@ -127,7 +127,7 @@ namespace Roommates
                         Console.Write("Select the id of the roommate you want to assign the chore to.");
                         int selectedRmId = int.Parse(Console.ReadLine());
                         choreRepo.AssignChore(selectedRmId, selectedChoreId);
-                        Console.Write("Chore assigned");
+                        Console.WriteLine("Chore assigned");
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
