@@ -29,11 +29,15 @@ namespace Roommates
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
+
+
                     case ("Show all chores"):
                         ListAllChores();
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
+
+
                     case ("Search for room"):
                         Console.Write("Room Id: ");
                         int id = int.Parse(Console.ReadLine());
@@ -68,33 +72,27 @@ namespace Roommates
 
                         Console.Write("Max occupancy: ");
                         int max = int.Parse(Console.ReadLine());
-
                         Room roomToAdd = new Room()
                         {
                             Name = name,
                             MaxOccupancy = max
                         };
-
                         roomRepo.Insert(roomToAdd);
-
                         Console.WriteLine($"{roomToAdd.Name} has been added and assigned an Id of {roomToAdd.Id}");
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
+
                     case ("Update a room"):
                         List<Room> roomOptions = ListAllRooms("return");
                         Console.Write("Which room would you like to update? ");
                         int selectedRoomId = int.Parse(Console.ReadLine());
                         Room selectedRoom = roomOptions.FirstOrDefault(r => r.Id == selectedRoomId);
-
                         Console.Write("New Name: ");
                         selectedRoom.Name = Console.ReadLine();
-
                         Console.Write("New Max Occupancy: ");
                         selectedRoom.MaxOccupancy = int.Parse(Console.ReadLine());
-
                         roomRepo.Update(selectedRoom);
-
                         Console.WriteLine($"Room has been successfully updated");
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
