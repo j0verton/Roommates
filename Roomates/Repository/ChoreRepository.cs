@@ -127,10 +127,28 @@ namespace Roommates.Repository
         }
 
         public void AssignChore(int roommateId, int choreId) 
-        { 
-        
-        
-        
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO RoommateChore (RoommateId, ChoreId) 
+                                            OUTPUT INSERTED.Id 
+                                            VALUES (@roommateid, @choreid)";
+                    cmd.Parameters.AddWithValue("@roommateid", roommateId);
+                    cmd.Parameters.AddWithValue("@choreid", choreId);
+                    int id = (int)cmd.ExecuteScalar();
+
+                    //RoommateChore.Id = id;
+
+                }
+            }
         }
+
+        public List<ChoreCount> GetChoreCounts()
+
+
     }
 }
+
